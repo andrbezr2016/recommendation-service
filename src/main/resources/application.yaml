@@ -17,3 +17,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${spring.flyway.default-schema}
+recommendation-service:
+  notification-job:
+    initial-delay: 10000
+    fixed-delay: 10000
+catalog-service:
+  graphql:
+    url: http://localhost:8081/graphql

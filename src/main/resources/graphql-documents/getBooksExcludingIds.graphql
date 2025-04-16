@@ -1,0 +1,16 @@
+query getBooksExcludingIds($ids: [ID!]) {
+    getBooksExcludingIds(ids: $ids) {
+        id
+        title
+        description
+        author
+        publisher
+        yearPublished
+        isbn
+        pages
+        tags {
+            id
+            name
+        }
+    }
+}

@@ -1,0 +1,16 @@
+query getBooksByIds($ids: [ID!]) {
+    getBooksByIds(ids: $ids) {
+        id
+        title
+        description
+        author
+        publisher
+        yearPublished
+        isbn
+        pages
+        tags {
+            id
+            name
+        }
+    }
+}
