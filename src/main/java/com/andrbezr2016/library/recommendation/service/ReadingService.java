@@ -1,11 +1,11 @@
 package com.andrbezr2016.library.recommendation.service;
 
-import com.andrbezr2016.library.recommendation.dto.BookDto;
-import com.andrbezr2016.library.recommendation.dto.NotableBookDto;
+import com.andrbezr2016.library.recommendation.dto.*;
 import com.andrbezr2016.library.recommendation.entity.NotableBook;
 import com.andrbezr2016.library.recommendation.mapper.NotableBookMapper;
 import com.andrbezr2016.library.recommendation.repository.NotableBookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -23,15 +23,23 @@ public class ReadingService {
     private final CatalogLoaderService catalogLoaderService;
     private final NotableBookMapper notableBookMapper;
 
-    public Collection<BookDto> getBooksToRead() {
-        Collection<UUID> bookIds = notableBookRepository.findAllBookIds();
-        if (bookIds == null) {
-            bookIds = Collections.emptyList();
-        }
-
-        return catalogLoaderService.getBooksExcludingIds(bookIds);
+    public NotableBookDto addNotableBook(NotableBookInput notableBookInput) {
+        return null;
     }
 
+    public NotableBookDto updateNotableBook(UUID notableBookId, NotableBookUpdate notableBookUpdate) {
+        return null;
+    }
+
+    public NotableBookDto deleteNotableBook(UUID notableBookId) {
+        return null;
+    }
+
+    public Collection<NotableBookDto> getNotableBook(UUID notableBookId) {
+        return null;
+    }
+
+    @Cacheable("notableBooks")
     public Collection<NotableBookDto> getNotableBooks() {
         Collection<NotableBook> notableBooks = notableBookRepository.findAll();
         if (notableBooks.isEmpty()) {
@@ -47,5 +55,27 @@ public class ReadingService {
             notableBookDto.setBookDto(bookDto);
         }
         return notableBookDtos;
+    }
+
+    public NoteDto addNote(UUID notableBookId, NoteInput noteInput) {
+        return null;
+    }
+
+    public NoteDto updateNote(UUID noteId, NoteUpdate noteUpdate) {
+        return null;
+    }
+
+    public NoteDto deleteNote(UUID noteId) {
+        return null;
+    }
+
+    @Cacheable("booksToRead")
+    public Collection<BookDto> getBooksToRead() {
+        Collection<UUID> bookIds = notableBookRepository.findAllBookIds();
+        if (bookIds == null) {
+            bookIds = Collections.emptyList();
+        }
+
+        return catalogLoaderService.getBooksExcludingIds(bookIds);
     }
 }
