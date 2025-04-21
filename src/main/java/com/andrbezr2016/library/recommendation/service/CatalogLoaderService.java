@@ -1,6 +1,7 @@
 package com.andrbezr2016.library.recommendation.service;
 
 import com.andrbezr2016.library.recommendation.dto.BookDto;
+import com.andrbezr2016.library.recommendation.dto.BookFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.graphql.client.GraphQlClient;
@@ -22,6 +23,11 @@ public class CatalogLoaderService {
 
     public Collection<BookDto> getBooksByIds(Collection<UUID> ids) {
         return graphQlClient.document("getBooksByIds").variable("ids", ids).retrieveSync("getBooksByIds").toEntity(new ParameterizedTypeReference<>() {
+        });
+    }
+
+    public Collection<BookDto> getBooks(BookFilter bookFilter) {
+        return graphQlClient.document("getBooks").variable("bookFilter", bookFilter).retrieveSync("getBooks").toEntity(new ParameterizedTypeReference<>() {
         });
     }
 }

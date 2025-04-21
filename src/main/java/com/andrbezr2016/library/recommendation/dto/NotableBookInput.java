@@ -3,6 +3,8 @@ package com.andrbezr2016.library.recommendation.dto;
 import com.andrbezr2016.library.recommendation.model.ReadingStatus;
 import lombok.*;
 
+import java.util.UUID;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class NotableBookInput {
 
-    private BookDto bookDto;
+    private UUID bookId;
     private Integer score;
     private ReadingStatus status;
 }

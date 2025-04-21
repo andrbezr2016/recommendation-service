@@ -1,0 +1,16 @@
+query getBooks($bookFilter: BookFilter!) {
+    getBooks(bookFilter: $bookFilter) {
+        id
+        title
+        description
+        author
+        publisher
+        yearPublished
+        isbn
+        pages
+        tags {
+            id
+            name
+        }
+    }
+}

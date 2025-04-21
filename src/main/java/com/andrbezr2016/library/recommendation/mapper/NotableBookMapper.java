@@ -1,6 +1,8 @@
 package com.andrbezr2016.library.recommendation.mapper;
 
 import com.andrbezr2016.library.recommendation.dto.NotableBookDto;
+import com.andrbezr2016.library.recommendation.dto.NotableBookInput;
+import com.andrbezr2016.library.recommendation.dto.NotableBookUpdate;
 import com.andrbezr2016.library.recommendation.entity.NotableBook;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,4 +19,8 @@ public interface NotableBookMapper {
 
     @Mapping(target = "bookId", source = "notableBookDto.bookDto.id")
     NotableBook toEntity(NotableBookDto notableBookDto);
+
+    NotableBook toEntity(NotableBookInput notableBookInput);
+
+    NotableBook toEntity(NotableBookUpdate notableBookUpdate);
 }

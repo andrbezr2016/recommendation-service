@@ -4,6 +4,7 @@ import com.andrbezr2016.library.recommendation.dto.*;
 import com.andrbezr2016.library.recommendation.service.ReadingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
+@Validated
 @RestController
 @RequestMapping("/reading")
 public class ReadingController {
@@ -36,7 +38,7 @@ public class ReadingController {
     }
 
     @GetMapping("/notableBooks/{id}")
-    public Collection<NotableBookDto> getNotableBook(@PathVariable("notableBookId") UUID notableBookId) {
+    public NotableBookDto getNotableBook(@PathVariable("notableBookId") UUID notableBookId) {
         log.info("Get notable book by id: {}", notableBookId);
         return readingService.getNotableBook(notableBookId);
     }
