@@ -13,6 +13,6 @@ public class NotificationJob {
 
     @Scheduled(initialDelayString = "${recommendation-service.notification-job.initial-delay}", fixedDelayString = "${recommendation-service.notification-job.fixed-delay}")
     public void sendNotification() {
-        notificationService.sendNotification();
+        boolean isOk = notificationService.sendNotification();
     }
 }

@@ -1,10 +1,17 @@
 package com.andrbezr2016.library.recommendation.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class ReadingServiceTest {
+
+    @Autowired
+    ReadingService readingService;
+    @MockitoBean
+    CatalogLoaderService catalogLoaderService;
 
     @Test
     void addNotableBook() {

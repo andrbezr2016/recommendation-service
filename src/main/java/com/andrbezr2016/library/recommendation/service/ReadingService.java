@@ -10,6 +10,7 @@ import com.andrbezr2016.library.recommendation.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class ReadingService {
         if (bookDtos.isEmpty()) {
             return null;
         }
+        notableBook.setCreatedAt(LocalDateTime.now());
         notableBook = notableBookRepository.save(notableBook);
         NotableBookDto notableBookDto = notableBookMapper.toDto(notableBook);
         notableBookDto.setBookDto(bookDtos.iterator().next());
@@ -48,6 +50,7 @@ public class ReadingService {
             if (notableBookUpdate.getStatus() != null) {
                 notableBook.setStatus(notableBookUpdate.getStatus());
             }
+            notableBook.setModifiedAt(LocalDateTime.now());
             notableBook = notableBookRepository.save(notableBook);
             NotableBookDto notableBookDto = notableBookMapper.toDto(notableBook);
             Collection<BookDto> bookDtos = catalogLoaderService.getBooks(BookFilter.builder().id(notableBook.getBookId()).build());
@@ -107,6 +110,7 @@ public class ReadingService {
         NotableBook notableBook = notableBookRepository.findById(notableBookId).orElse(null);
         if (notableBook != null) {
             Note note = noteMapper.toEntity(noteInput);
+            note.setCreatedAt(LocalDateTime.now());
             note = noteRepository.save(note);
             return noteMapper.toDto(note);
         }
@@ -119,6 +123,7 @@ public class ReadingService {
             if (noteUpdate.getContent() != null) {
                 note.setContent(noteUpdate.getContent());
             }
+            note.setModifiedAt(LocalDateTime.now());
             note = noteRepository.save(note);
             return noteMapper.toDto(note);
         }

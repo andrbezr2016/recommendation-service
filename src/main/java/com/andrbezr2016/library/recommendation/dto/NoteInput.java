@@ -1,5 +1,6 @@
 package com.andrbezr2016.library.recommendation.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Setter
@@ -11,5 +12,6 @@ import lombok.*;
 @EqualsAndHashCode
 public class NoteInput {
 
+    @NotNull
     private String content;
 }

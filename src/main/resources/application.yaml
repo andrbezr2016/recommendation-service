@@ -23,4 +23,4 @@ recommendation-service:
     fixed-delay: 10000
 catalog-service:
   graphql:
-    url: http://localhost:8081/graphql
+    url: ${CATALOG_SERVICE_GRAPHQL_URL:http://localhost:8081/graphql}

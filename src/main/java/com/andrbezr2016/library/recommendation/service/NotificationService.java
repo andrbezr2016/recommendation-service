@@ -14,8 +14,9 @@ public class NotificationService {
 
     private final ReadingService readingService;
 
-    public void sendNotification() {
+    public boolean sendNotification() {
         Collection<BookDto> books = readingService.getBooksToRead();
         log.info("You haven't read these books yet: {}", books);
+        return true;
     }
 }
