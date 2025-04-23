@@ -15,6 +15,7 @@ import java.util.UUID;
 public class NoteDto {
 
     private UUID id;
+    private UUID notableBookId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

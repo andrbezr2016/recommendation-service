@@ -9,6 +9,7 @@ import com.andrbezr2016.library.recommendation.repository.NotableBookRepository;
 import com.andrbezr2016.library.recommendation.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -28,11 +29,12 @@ public class ReadingService {
     private final NotableBookMapper notableBookMapper;
     private final NoteMapper noteMapper;
 
+    @Transactional
     public NotableBookDto addNotableBook(NotableBookInput notableBookInput) {
         NotableBook notableBook = notableBookMapper.toEntity(notableBookInput);
         Collection<BookDto> bookDtos = catalogLoaderService.getBooks(BookFilter.builder().id(notableBook.getBookId()).build());
         if (bookDtos.isEmpty()) {
-            return null;
+            throw new RuntimeException(String.format("Book with id: %s doesn't exist!", notableBookInput.getBookId()));
         }
         notableBook.setCreatedAt(LocalDateTime.now());
         notableBook = notableBookRepository.save(notableBook);
@@ -41,6 +43,7 @@ public class ReadingService {
         return notableBookDto;
     }
 
+    @Transactional
     public NotableBookDto updateNotableBook(UUID notableBookId, NotableBookUpdate notableBookUpdate) {
         NotableBook notableBook = notableBookRepository.findById(notableBookId).orElse(null);
         if (notableBook != null) {
@@ -58,10 +61,12 @@ public class ReadingService {
                 notableBookDto.setBookDto(bookDtos.iterator().next());
             }
             return notableBookDto;
+        } else {
+            throw new RuntimeException(String.format("Notable Book with id: %s doesn't exist!", notableBookId));
         }
-        return null;
     }
 
+    @Transactional
     public NotableBookDto deleteNotableBook(UUID notableBookId) {
         NotableBook notableBook = notableBookRepository.findById(notableBookId).orElse(null);
         if (notableBook != null) {
@@ -72,10 +77,12 @@ public class ReadingService {
                 notableBookDto.setBookDto(bookDtos.iterator().next());
             }
             return notableBookDto;
+        } else {
+            throw new RuntimeException(String.format("Notable Book with id: %s doesn't exist!", notableBookId));
         }
-        return null;
     }
 
+    @Transactional
     public NotableBookDto getNotableBook(UUID notableBookId) {
         NotableBook notableBook = notableBookRepository.findById(notableBookId).orElse(null);
         if (notableBook != null) {
@@ -89,6 +96,7 @@ public class ReadingService {
         return null;
     }
 
+    @Transactional
     public Collection<NotableBookDto> getNotableBooks() {
         Collection<NotableBook> notableBooks = notableBookRepository.findAll();
         if (notableBooks.isEmpty()) {
@@ -106,17 +114,21 @@ public class ReadingService {
         return notableBookDtos;
     }
 
+    @Transactional
     public NoteDto addNote(UUID notableBookId, NoteInput noteInput) {
         NotableBook notableBook = notableBookRepository.findById(notableBookId).orElse(null);
         if (notableBook != null) {
             Note note = noteMapper.toEntity(noteInput);
+            note.setNotableBookId(notableBookId);
             note.setCreatedAt(LocalDateTime.now());
             note = noteRepository.save(note);
             return noteMapper.toDto(note);
+        } else {
+            throw new RuntimeException(String.format("Notable Book with id: %s doesn't exist!", notableBookId));
         }
-        return null;
     }
 
+    @Transactional
     public NoteDto updateNote(UUID noteId, NoteUpdate noteUpdate) {
         Note note = noteRepository.findById(noteId).orElse(null);
         if (note != null) {
@@ -126,19 +138,23 @@ public class ReadingService {
             note.setModifiedAt(LocalDateTime.now());
             note = noteRepository.save(note);
             return noteMapper.toDto(note);
+        } else {
+            throw new RuntimeException(String.format("Note with id: %s doesn't exist!", noteId));
         }
-        return null;
     }
 
+    @Transactional
     public NoteDto deleteNote(UUID noteId) {
         Note note = noteRepository.findById(noteId).orElse(null);
         if (note != null) {
             noteRepository.delete(note);
             return noteMapper.toDto(note);
+        } else {
+            throw new RuntimeException(String.format("Note with id: %s doesn't exist!", noteId));
         }
-        return null;
     }
 
+    @Transactional
     public Collection<BookDto> getBooksToRead() {
         Collection<UUID> bookIds = notableBookRepository.findAllBookIds();
         if (bookIds == null) {
