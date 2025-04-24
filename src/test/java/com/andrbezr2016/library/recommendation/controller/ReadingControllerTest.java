@@ -46,8 +46,8 @@ class ReadingControllerTest {
     @Test
     void updateNotableBook() throws Exception {
         UUID notableBookId = UUID.randomUUID();
-        NotableBookUpdate notableBookUpdate = NotableBookUpdate.builder().score(100).build();
-        NotableBookDto notableBookDto = NotableBookDto.builder().id(notableBookId).score(100).build();
+        NotableBookUpdate notableBookUpdate = NotableBookUpdate.builder().score(5).build();
+        NotableBookDto notableBookDto = NotableBookDto.builder().id(notableBookId).score(5).build();
 
         doReturn(notableBookDto).when(readingService).updateNotableBook(eq(notableBookId), eq(notableBookUpdate));
 
