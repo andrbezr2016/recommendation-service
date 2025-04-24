@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS notable_books (
 
 CREATE TABLE IF NOT EXISTS notes (
     id uuid NOT NULL,
-    notable_book_id uuid NOT NULL REFERENCES notable_books(id),
+    notable_book_id uuid REFERENCES notable_books(id) ON DELETE CASCADE,
     content varchar NOT NULL,
     created_at timestamp NOT NULL,
     modified_at timestamp,

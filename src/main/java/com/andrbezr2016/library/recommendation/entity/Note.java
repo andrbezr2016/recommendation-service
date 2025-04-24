@@ -19,7 +19,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, unique = true)
     private UUID id;
-    @Column(name = "notable_book_id", nullable = false)
+    @Column(name = "notable_book_id")
     private UUID notableBookId;
     @Column(name = "content", nullable = false)
     private String content;

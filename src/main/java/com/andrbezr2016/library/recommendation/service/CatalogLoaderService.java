@@ -17,17 +17,17 @@ public class CatalogLoaderService {
     private final GraphQlClient graphQlClient;
 
     public Collection<BookDto> getBooksExcludingIds(Collection<UUID> ids) {
-        return graphQlClient.document("getBooksExcludingIds").variable("ids", ids).retrieveSync("getBooksExcludingIds").toEntity(new ParameterizedTypeReference<>() {
+        return graphQlClient.documentName("getBooksExcludingIds").variable("ids", ids).retrieveSync("getBooksExcludingIds").toEntity(new ParameterizedTypeReference<>() {
         });
     }
 
     public Collection<BookDto> getBooksByIds(Collection<UUID> ids) {
-        return graphQlClient.document("getBooksByIds").variable("ids", ids).retrieveSync("getBooksByIds").toEntity(new ParameterizedTypeReference<>() {
+        return graphQlClient.documentName("getBooksByIds").variable("ids", ids).retrieveSync("getBooksByIds").toEntity(new ParameterizedTypeReference<>() {
         });
     }
 
     public Collection<BookDto> getBooks(BookFilter bookFilter) {
-        return graphQlClient.document("getBooks").variable("bookFilter", bookFilter).retrieveSync("getBooks").toEntity(new ParameterizedTypeReference<>() {
+        return graphQlClient.documentName("getBooks").variable("bookFilter", bookFilter).retrieveSync("getBooks").toEntity(new ParameterizedTypeReference<>() {
         });
     }
 }

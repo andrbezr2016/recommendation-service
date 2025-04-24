@@ -37,7 +37,7 @@ public class NotableBook {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "notable_book_id")
     private List<Note> notes;
 }
